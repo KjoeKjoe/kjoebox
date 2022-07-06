@@ -13,9 +13,8 @@ namespace SlaveMod
             GodPower godPower = AssetManager.powers.get("_spawnActor");
 
 
-
             ActorData aData = new ActorData();
-            //Debug.Log(spawnSlave);
+            Debug.Log(slave);
 
             string name = slave.firstName;
 
@@ -56,7 +55,7 @@ namespace SlaveMod
 
             if (traits.trait_data.Any())
             {
-                //Debug.Log(traits.trait_data[0]);
+                Debug.Log(traits.trait_data[0]);
                 
                 foreach (string trait in traits.trait_data)
                 {
@@ -118,7 +117,7 @@ namespace SlaveMod
             WorldTip.showNow("Spawning in " + slave.nickname, false, "top", 1);
             Actor pActor = MapBox.instance.createNewUnit("unit_" + slave.race, worldTile, null, 0, aData);
             pActor.restoreHealth(slave.base_health);
-            //Debug.Log(slave.helmet + slave.boots + slave.bodyarmor);
+            Debug.Log(slave.helmet + slave.boots + slave.bodyarmor);
 
             Dictionary<string, EquipmentType> equipments = new Dictionary<string, EquipmentType>();
             equipments.Add("helmet", EquipmentType.Helmet );
@@ -140,14 +139,14 @@ namespace SlaveMod
 
         public void AddItemToSlave(string item, EquipmentType itemType, Actor pActor, DiscordSlave slave)
         {
-           // Debug.Log(item + " " + itemType + pActor.name + slave.firstName + "-----------------");
+           Debug.Log(item + " " + itemType + pActor.name + slave.firstName + "-----------------");
 
             string material = slave.bodyarmor;
             if (item != "armor")
             {
                 material = slave.GetType().GetProperty(item).GetValue(slave, null) as string;
             }
-            //Debug.Log("MATERIAL = " + material+"---------------------");
+            Debug.Log("MATERIAL = " + material+"---------------------");
 
 
             if (material == null || material.Length < 1)
@@ -158,7 +157,7 @@ namespace SlaveMod
 
             Dictionary<string, ItemQuality> qualities = new Dictionary<string, ItemQuality>();
 
-            qualities.Add("Junk", ItemQuality.Junk);
+            //qualities.Add("Junk", ItemQuality.Junk);
             qualities.Add("Normal", ItemQuality.Normal);
             qualities.Add("Rare", ItemQuality.Rare);
             qualities.Add("Epic", ItemQuality.Epic);
@@ -195,10 +194,10 @@ namespace SlaveMod
 
             ItemAsset equipment = AssetManager.items.get(item);
             equipment.quality = pickedQuality;
-
+             
 
             //Debug.Log(slot + "---------------------");
-            ItemGenerator.generateItem(equipment, material, slot, 1, "discord shop", "god", 1);
+            ItemGenerator.generateItem(equipment, material, 1, "discord shop", "god", 1, pActor);
 
 
         }

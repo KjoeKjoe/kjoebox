@@ -90,9 +90,11 @@ namespace SlaveMod
 
             if (request.text != "no spawns")
             {
+                Debug.Log(request.text);
                 DiscordSlave slave = JsonConvert.DeserializeObject<DiscordSlave>(request.text);
 
                 Debug.Log("spawning unit");
+                Debug.Log(slave);
                 var spawn = new SpawnSlaveOnWorld();
                 spawn.generateSlaveOnWorld(slave, "spawnSlave");
 
